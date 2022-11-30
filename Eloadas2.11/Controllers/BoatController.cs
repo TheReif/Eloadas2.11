@@ -16,7 +16,7 @@ namespace Eloadas2._11.Controllers
         {
             HajosContext hajosContext = new Models.HajosContext();
             var lisa = from x in hajosContext.Questions
-                       select x;
+                       select x.Question1;
             return Ok(lisa);
         }
 
