@@ -10,7 +10,8 @@ namespace Eloadas2._11.Controllers
     public class BoatController : ControllerBase
     {
         [HttpGet]
-        [Route("hajo/kerdesek")]
+        //[Route("hajo/kerdesek")]
+        [Route("questions/all")]
         public IActionResult fv1()
         {
             HajosContext hajosContext = new Models.HajosContext();
