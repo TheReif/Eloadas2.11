@@ -26,13 +26,23 @@ namespace Eloadas2._11.Controllers
         {
             HajosContext hajosContext = new HajosContext();
             var lisa = (from x in hajosContext.Questions
-                       where x.QuestionId == sorszám
-                       select x).FirstOrDefault();
+                        where x.QuestionId == sorszám
+                        select x).FirstOrDefault();
 
 
             if (lisa == null) return BadRequest("Nincs ilyen sorszámú kérdés");
             //var lisa2 = hajosContext.Questions.Where(x => x.QuestionId == id);
             return new JsonResult(lisa);
         }
+
+        [HttpGet]
+        [Route("questions/count")]
+        public int M4()
+        {
+            HajosContext hjosContext = new HajosContext();
+            int kérdésSzám= hjosContext.Questions.Count();
+            return kérdésSzám;
+        }
+
     }
 }

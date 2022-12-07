@@ -7,6 +7,11 @@
 
 var jóVálasz;
 var questionId = 4;
+var hotList = [];
+var questionsInHotList = 3;
+var displayedQuestion;
+var numberOfQuestions;
+var nextQuestion = 1;
 function kérdésMegjenítés(kérdés) {
     if (!kérdés) return;
     console.log(kérdés);
@@ -39,7 +44,14 @@ function kérdésBetöltés(id) {
                 //kérdésMegjelenítés(response.json())
             }
         })
-        .then(data => kérdésMegjenítés(data));
+        //.then(data => kérdésMegjenítés(data));
+        .then(
+            q => {
+                hotList[destination].question = q;
+                hotList[destination].goodAnswers = 0;
+                console.log(`A ${questionNumber}. kérdés letöltve a hot lost ${destination}. helyére`)
+            }
+        );
 }
 function előre() {
     questionId++;
@@ -51,6 +63,21 @@ function vissza() {
     kérdésBetöltés(questionId)
 }
 
+window.onload = function (e) {
+    console.log("Oldal betöltve...");
+    document.getElementById("előre_gomb").onclick = előre;
+    document.getElementById("vissza_gomb").onclick = vissza;
+    kérdésBetöltés(questionId)
+}
+function választás(n) {
+    if (n != jóVálasz) {
+        document.getElementById(`válasz${n}`).classList.add("rossz");
+        document.getElementById(`válasz${jóVálasz}`).classList.add("jó");
+    }
+    else {
+        document.getElementById(`válasz${jóVálasz}`).classList.add("jó");
+    }
+}
 
 function kiíratás(lista) {
     console.log(lista)
@@ -61,4 +88,22 @@ function kiíratás(lista) {
         ;
     }
 }
+function init() {
+    for (var i = 0; i < questionsInHotList; i++) {
+        let q = {
+            question: {},
+            goodAnswers: 0
+        }
+        hotList[i] = q;
+    }
+
+    
+    for (var i = 0; i < questionsInHotList; i++) {
+        kérdésBetöltés(nextQuestion, i);
+        nextQuestion++;
+    }
+}
+
+
+
 
