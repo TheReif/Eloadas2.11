@@ -1,5 +1,5 @@
 ﻿window.onload = () => {
-    fetch('/questions/1')
+    fetch('/questions/4')
         .then(response => response.json())
         .then(data => kérdésMegjenítés()
          );
