@@ -1,7 +1,7 @@
 ﻿window.onload = () => {
     fetch('/questions/1')
         .then(response => response.json())
-        .then(data => kérdésMegjenítés(data)
+        .then(data => kérdésMegjenítés()
          );
 };
 
@@ -12,7 +12,8 @@ var questionsInHotList = 3;
 var displayedQuestion;
 var numberOfQuestions;
 var nextQuestion = 1;
-function kérdésMegjenítés(kérdés) {
+function kérdésMegjenítés() {
+    let kérdés = hotlist[displayedQuestion].question1;
     if (!kérdés) return;
     console.log(kérdés);
     document.getElementById("kérdés_szöveg").innerText = kérdés.question1
@@ -33,7 +34,7 @@ function kérdésMegjenítés(kérdés) {
     document.getElementById("válasz2").classList.remove("jó", "rossz");
     document.getElementById("válasz3").classList.remove("jó", "rossz");
 }
-function kérdésBetöltés(id) {
+/*function kérdésBetöltés(id) {
     fetch(`/questions/${id}`)
         .then(response => {
             if (!response.ok) {
@@ -44,18 +45,39 @@ function kérdésBetöltés(id) {
                 //kérdésMegjelenítés(response.json())
             }
         })
-        //.then(data => kérdésMegjenítés(data));
-        .then(
-            q => {
-                hotList[destination].question = q;
-                hotList[destination].goodAnswers = 0;
-                console.log(`A ${questionNumber}. kérdés letöltve a hot lost ${destination}. helyére`)
+        .then(data => kérdésMegjenítés(data));
+*/
+
+function kérdésBetöltés(questionNumber,destination) {
+    fetch(`/questions/${questionNumber}`)
+        .then(result => {
+            if (!result.ok) {
+                console.error(`Hibás válasz: ${response.status}`)
             }
-        );
+            else {
+                return result.json()
+                //kérdésMegjelenítés(response.json())
+            }
+        })
+        //.then(data => kérdésMegjenítés(data));
+    .then(
+        q => {
+            hotList[destination].question = q;
+            hotList[destination].goodAnswers = 0;
+            console.log(`A ${questionNumber}. kérdés letöltve a hot lost ${destination}. helyére`)
+            if (displayedQuestion == undefined && destination == 0) {
+                displayedQuestion = 0;
+                kérdésMegjenítés();
+            }
+        }
+    );
 }
 function előre() {
-    questionId++;
-    kérdésBetöltés(questionId)
+    /*questionId++;
+    kérdésBetöltés(questionId)*/
+    displayedQuestion++;
+    if (displayedQuestion == questionsInHotList) displayedQuestion = 0;
+    kérdésMegjenítés()
 }
 
 function vissza() {
