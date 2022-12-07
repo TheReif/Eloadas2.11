@@ -21,18 +21,18 @@ namespace Eloadas2._11.Controllers
         }
 
         [HttpGet]
-        [Route("hajo/kerdesek/{id}")]
-        public IActionResult fv2(int id)
+        [Route("questions/{sorszám}")]
+        public IActionResult fv2(int sorszám)
         {
             HajosContext hajosContext = new HajosContext();
-            var lisa = from x in hajosContext.Questions
-                       where x.QuestionId == id
-                       select x;
-           
+            var lisa = (from x in hajosContext.Questions
+                       where x.QuestionId == sorszám
+                       select x).FirstOrDefault();
 
 
-            var lisa2 = hajosContext.Questions.Where(x => x.QuestionId == id);
-            return Ok(lisa.FirstOrDefault());
+            if (lisa == null) return BadRequest("Nincs ilyen sorszámú kérdés");
+            //var lisa2 = hajosContext.Questions.Where(x => x.QuestionId == id);
+            return new JsonResult(lisa);
         }
     }
 }

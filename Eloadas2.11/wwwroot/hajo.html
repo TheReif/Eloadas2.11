@@ -12,17 +12,17 @@
         </div>
         <div id="középső">
             <div id="válaszok">
-                <div id="válasz1" class="kerdes kattintható" >Válasz1</div>
-                <div id="válasz2" class="kerdes kattintható jó">Válasz2</div>
-                <div id="válasz3" class="kerdes kattintható rossz">Válasz3</div>
+                <div id="válasz1" onClick="választás(1)" class="kerdes kattintható" >Válasz1</div>
+                <div id="válasz2" onClick="választás(2)" class="kerdes kattintható jó">Válasz2</div>
+                <div id="válasz3" onClick="választás(3)" class="kerdes kattintható rossz">Válasz3</div>
             </div>
             <div id="kép">
                 <img src="https://kzgzdiag426.blob.core.windows.net/netcore/teszt-0050.jpg" alt="szia" />
             </div>
         </div>
         <div id="vezérlő">
-            <div class="gomb kattintható">Vissza</div>
-            <div class="gomb kattintható">Előre</div>
+            <div id="vissza_gomb" class="gomb kattintható">Vissza</div>
+            <div id="előre_gomb" class="gomb kattintható">Előre</div>
         </div>
 
     </div>
@@ -89,5 +89,6 @@
             background-color:red;
         }
     </style>
+    <script src="main.js"></script>
 </body>
 </html>
